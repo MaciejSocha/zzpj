@@ -14,10 +14,6 @@
 	<name>zzpj</name>
 	<description>Project for ZZPJ</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
