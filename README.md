@@ -16,5 +16,8 @@ Stuff:
 - Github ✔️
 - CircleCi ✔️
 - Heroku ✔️
-- JUnit (4 or 5) ❌
+- JUnit5 ✔️
 - DataBase (Postgres) ❌
+- Lombok ✔️
+- Checkstyle ❌
+- Cobertura ❌
