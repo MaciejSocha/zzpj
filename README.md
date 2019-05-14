@@ -19,5 +19,3 @@ Stuff:
 - JUnit5 ✔️
 - DataBase (Postgres) ❌
 - Lombok ✔️
-- Checkstyle ❌
-- Cobertura ❌
