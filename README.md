@@ -42,6 +42,12 @@ To run app:
 
 RULES:
 
+- First rule of the gitclub, don't talk about gitclub
+
+- Second rule of the gitclub, don't talk about gitclub
+
 - Use branches (master is automatic deploy on heroku)
 
 - DON'T use swear words in commit (and also in code)
+
+- Use issues to manage tasks
