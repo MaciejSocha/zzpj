@@ -48,6 +48,9 @@ RULES:
 
 - Use branches (master is automatic deploy on heroku)
 
+- Name branches as tasks on github, first should be a number of issue (ex. 25_issue_name)
+
 - DON'T use swear words in commit (and also in code)
 
 - Use issues to manage tasks
+
