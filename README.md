@@ -30,7 +30,8 @@ To run app:
     
     a. I found sth wired. On Windows You set up username and pass during installation. On Linux password is not set, you must do it yourself.
     type: $sudo -i -u postgres then $psql and \password and set a password
-    also default authentication type does not use passwd so you must edit pg_hba.conf and set in last column 'password'
+    also default authentication type does not use passwd so you must edit pg_hba.conf and set in last column 'password'. To do it:
+    type SHOW hba_file; in psql shell and edit file with given path. Change METHOD to password.
     
 5. Change database credentials in src/main/resources/application.properties (change: spring.datasource.url, spring.datasource.username, spring.datasource.password) to Your local
     
