@@ -2,6 +2,7 @@ package razdwatrzy.zzpj.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,8 @@ public class User {
     private long id;
 
     @NotNull
-    @Column
+    @Size(max = 256)
+    @Column(unique = true)
     private String login;
 
     @OneToOne(fetch = FetchType.LAZY,
@@ -21,17 +23,34 @@ public class User {
             mappedBy = "user")
     private UserCredentials userCredentials;
 
-
+    @Temporal(TemporalType.DATE)
+    @NotNull
     @Column
     private Date registrationTime;
 
+    @NotNull
     @Column
     private Boolean isActiveted;
 
+    @NotNull
     @Column
     private Boolean isBanned;
 
+    @Temporal(TemporalType.DATE)
+    @NotNull
     @Column
     private Date lastLogin;
 
+    public User() {
+
+    }
+
+    public User(@NotNull @Size(max = 256) String login, UserCredentials userCredentials, @NotNull Date registrationTime, @NotNull Boolean isActiveted, @NotNull Boolean isBanned, @NotNull Date lastLogin) {
+        this.login = login;
+        this.userCredentials = userCredentials;
+        this.registrationTime = registrationTime;
+        this.isActiveted = isActiveted;
+        this.isBanned = isBanned;
+        this.lastLogin = lastLogin;
+    }
 }
