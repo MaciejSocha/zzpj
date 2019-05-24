@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "bonuses")
-public class Bonuses {
+public class Bonus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -34,11 +34,11 @@ public class Bonuses {
     @Column
     private String icon;
 
-    public Bonuses() {
+    public Bonus() {
 
     }
 
-    public Bonuses(Campaign campaign, @NotNull @Size(max = 16) String title, @NotNull @Size(max = 128) String description, @NotNull int pointsToGet, @NotNull String icon) {
+    public Bonus(Campaign campaign, @NotNull @Size(max = 16) String title, @NotNull @Size(max = 128) String description, @NotNull int pointsToGet, @NotNull String icon) {
         this.campaign = campaign;
         this.title = title;
         this.description = description;

@@ -14,7 +14,7 @@ public class User {
     private long id;
 
     @NotNull
-    @Size(max = 256)
+    @Size(max = 32)
     @Column(unique = true)
     private String login;
 
