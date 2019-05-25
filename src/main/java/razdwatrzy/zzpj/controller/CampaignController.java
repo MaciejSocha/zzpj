@@ -37,7 +37,7 @@ public class CampaignController {
         return campaign;
     }
     //TODO use Real Query
-    @GetMapping("campaign/{numberOfCampaigns}")
+    @GetMapping("campaigns/{numberOfCampaigns}")
     public List<Campaign> getCampaignsForMainPage(@PathVariable int numberOfCampaigns){
         {
             Iterable<Campaign> result = DataAccess.getCampaignRepository().findAll();
