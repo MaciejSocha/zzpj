@@ -16,7 +16,8 @@ public class UserControler {
 
     @GetMapping("user/{user_id}")
     public Optional<Example> getUser(@PathVariable Long user_id){
-        Optional<Example> user = userRepository.findById(user_id);
-        return user;
+        //TODO
+        //Optional<Example> user = userRepository.findById(user_id);
+        return null;
     }
 }
