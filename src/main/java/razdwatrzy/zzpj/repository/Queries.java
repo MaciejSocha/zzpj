@@ -6,7 +6,11 @@ import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
 import razdwatrzy.zzpj.model.UserCredentials;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
 public class Queries {
@@ -18,7 +22,7 @@ public class Queries {
 
 
     public void addUser(String login, String email, String password){
-        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
+        User user = new User(login,null,new Date(), true, false, new Date());
         UserCredentials credentials = new UserCredentials(user,email,password);
         user.setUserCredentials(credentials);
 
@@ -52,6 +56,12 @@ public class Queries {
         }catch (Exception e){
             throw new IllegalArgumentException("There are no campaigns with given id!");
         }
+    }
+
+    public List<Campaign> getCampaigns(int count){
+        List<Long> ids = StreamSupport.stream(campaignRepository.findAll().spliterator(), false).map(Campaign::getId).collect(Collectors.toList());
+        Collections.shuffle(ids);
+        return ids.subList(0,count).stream().map(x->campaignRepository.findById(x).get()).collect(Collectors.toList());
     }
 
 

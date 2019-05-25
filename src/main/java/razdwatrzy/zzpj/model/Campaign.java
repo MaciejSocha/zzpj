@@ -1,5 +1,7 @@
 package razdwatrzy.zzpj.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -7,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "campaigns")
+@Data
 public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
