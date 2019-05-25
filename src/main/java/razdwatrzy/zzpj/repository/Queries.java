@@ -1,5 +1,6 @@
 package razdwatrzy.zzpj.repository;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import razdwatrzy.zzpj.model.Campaign;
@@ -9,6 +10,7 @@ import razdwatrzy.zzpj.model.UserCredentials;
 import java.util.Date;
 
 @Repository
+@Data
 public class Queries {
     @Autowired
     CampaignRepository campaignRepository;
