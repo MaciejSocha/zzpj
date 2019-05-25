@@ -1,9 +1,7 @@
 package razdwatrzy.zzpj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.repository.Queries;
 
@@ -20,6 +18,21 @@ public class CampaignController {
     @GetMapping("campaign/{campaign_id}")
     public Campaign getCampaign(@PathVariable Long campaign_id){
         Campaign campaign = DataAccess.getCampaignById(campaign_id);
+        return campaign;
+    }
+    @PostMapping("addcampaign")
+    public Campaign addCampaign(@RequestBody Campaign newCampaign){
+        Campaign campaign = new Campaign(
+                newCampaign.getUserCampaign(),
+                newCampaign.getPoints(),
+                newCampaign.getPointsToWin(),
+                newCampaign.getIsFinished(),
+                newCampaign.getTitle(),
+                newCampaign.getShortDescription(),
+                newCampaign.getDescription(),
+                newCampaign.getBgIMG(),
+                newCampaign.getProfileIMG(),
+                newCampaign.getEndDate());
         return campaign;
     }
     //TODO use Real Query
