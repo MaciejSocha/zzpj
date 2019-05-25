@@ -33,6 +33,7 @@ public class CampaignController {
                 newCampaign.getBgIMG(),
                 newCampaign.getProfileIMG(),
                 newCampaign.getEndDate());
+        DataAccess.addCampaign(campaign);
         return campaign;
     }
     //TODO use Real Query
