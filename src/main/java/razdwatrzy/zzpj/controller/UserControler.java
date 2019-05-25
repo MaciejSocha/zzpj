@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import razdwatrzy.zzpj.model.User;
+import razdwatrzy.zzpj.model.Example;
 import razdwatrzy.zzpj.repository.UserRepository;
 
 import java.util.Optional;
@@ -15,8 +15,8 @@ public class UserControler {
     UserRepository userRepository;
 
     @GetMapping("user/{user_id}")
-    public Optional<User> getUser(@PathVariable Long user_id){
-        Optional<User> user = userRepository.findById(user_id);
+    public Optional<Example> getUser(@PathVariable Long user_id){
+        Optional<Example> user = userRepository.findById(user_id);
         return user;
     }
 }
