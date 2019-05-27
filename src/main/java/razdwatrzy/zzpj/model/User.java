@@ -57,4 +57,14 @@ public class User {
         this.isBanned = isBanned;
         this.lastLogin = lastLogin;
     }
+
+    public User(Long id, String login, UserCredentials userCredentials, Date registrationTime, Boolean isActiveted, Boolean isBanned, Date lastLogin) {
+        this.id = id;
+        this.login = login;
+        this.userCredentials = userCredentials;
+        this.registrationTime = registrationTime;
+        this.isActiveted = isActiveted;
+        this.isBanned = isBanned;
+        this.lastLogin = lastLogin;
+    }
 }
