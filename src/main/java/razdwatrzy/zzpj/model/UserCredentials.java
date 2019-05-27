@@ -1,9 +1,12 @@
 package razdwatrzy.zzpj.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+@Data
 @Entity
 @Table(name = "user_credentials")
 public class UserCredentials {

@@ -21,17 +21,19 @@ public class Queries {
     UserRepository userRepository;
 
 
-    public void addUser(String login, String email, String password){
+    public User addUser(String login, String email, String password){
         User user = new User(login,null,new Date(), true, false, new Date());
         UserCredentials credentials = new UserCredentials(user,email,password);
         user.setUserCredentials(credentials);
 
         //Cascades to credentials
         userRepository.save(user);
+        return user;
     }
 
-    public void addCampaign(Campaign campaign){
+    public Campaign addCampaign(Campaign campaign){
         campaignRepository.save(campaign);
+        return campaign;
     }
 
     public User getUserByEmail(String email) throws IllegalArgumentException{
@@ -64,5 +66,9 @@ public class Queries {
         return ids.subList(0,count).stream().map(x->campaignRepository.findById(x).get()).collect(Collectors.toList());
     }
 
+
+    public Iterable<Campaign> getActiveCampaignsByUserId(long id){
+        return campaignRepository.getActiveCampaignsByUserId(id);
+    }
 
 }
