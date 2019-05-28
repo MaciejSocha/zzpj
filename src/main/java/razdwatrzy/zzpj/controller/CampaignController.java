@@ -8,7 +8,7 @@ import razdwatrzy.zzpj.repository.Queries;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 @RestController
 public class CampaignController {
     @Autowired
