@@ -1,10 +1,8 @@
-package crypto;
+package razdwatrzy.zzpj.crypto;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import razdwatrzy.zzpj.crypto.Char32ICipher;
-import razdwatrzy.zzpj.crypto.ICipher;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class CryptoTests {
 
 
-    ICipher cipher = new Char32ICipher();
+    private ICipher cipher = new Char32ICipher();
 
     @Test
     public void encodeTest() throws Exception {
