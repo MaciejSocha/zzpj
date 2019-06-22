@@ -1,6 +1,6 @@
 package razdwatrzy.zzpj.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
@@ -11,19 +11,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import java.util.Optional;
 
 @Repository
+@Data
 public class Queries {
-    @Autowired
+    final
     CampaignRepository campaignRepository;
 
-    @Autowired
+    final
     UserRepository userRepository;
 
+    public Queries(CampaignRepository campaignRepository, UserRepository userRepository) {
+        this.campaignRepository = campaignRepository;
+        this.userRepository = userRepository;
+    }
 
-    public User addUser(String login, String email, String password){
-        User user = new User(login,null,new Date(), true, false, new Date());
-        UserCredentials credentials = new UserCredentials(user,email,password);
+    public void addUser(String login, String email, String password) {
+        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
+        UserCredentials credentials = new UserCredentials(user, email, password);
         user.setUserCredentials(credentials);
 
         //Cascades to credentials
@@ -36,26 +42,28 @@ public class Queries {
         return campaign;
     }
 
-    public User getUserByEmail(String email) throws IllegalArgumentException{
-        try{
+    public User getUserByEmail(String email) throws IllegalArgumentException {
+        try {
             return userRepository.getUserByUserCredentialsEmail(email).get(0);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalArgumentException("There are no users with given email!");
         }
     }
 
-    public User getUserById(long id) throws IllegalArgumentException{
-        try{
-            return userRepository.findById(id).get();
-        }catch (Exception e){
+    public User getUserById(long id) throws IllegalArgumentException {
+        try {
+            Optional<User> user = userRepository.findById(id);
+            return user.orElse(null); //TODO should throw custom exception
+        } catch (Exception e) {
             throw new IllegalArgumentException("There are no users with given id!");
         }
     }
 
-    public Campaign getCampaignById(long id) throws IllegalArgumentException{
-        try{
-            return campaignRepository.findById(id).get();
-        }catch (Exception e){
+    public Campaign getCampaignById(long id) throws IllegalArgumentException {
+        try {
+            Optional<Campaign> campaign = campaignRepository.findById(id);
+            return campaign.orElse(null); //TODO should throw custom exception
+        } catch (Exception e) {
             throw new IllegalArgumentException("There are no campaigns with given id!");
         }
     }
