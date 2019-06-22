@@ -7,7 +7,11 @@ import razdwatrzy.zzpj.model.User;
 import razdwatrzy.zzpj.model.UserCampaign;
 import razdwatrzy.zzpj.model.UserCredentials;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import java.util.Optional;
 
 @Repository
@@ -28,17 +32,19 @@ public class Queries {
         this.userCampaignRepository = userCampaignRepository;
     }
 
-    public void addUser(String login, String email, String password) {
+    public User addUser(String login, String email, String password) {
         User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
         UserCredentials credentials = new UserCredentials(user, email, password);
         user.setUserCredentials(credentials);
 
         //Cascades to credentials
         userRepository.save(user);
+        return user;
     }
 
-    public void addCampaign(Campaign campaign) {
+    public Campaign addCampaign(Campaign campaign){
         campaignRepository.save(campaign);
+        return campaign;
     }
 
     public User getUserByEmail(String email) throws IllegalArgumentException {
@@ -59,12 +65,23 @@ public class Queries {
         return campaign.orElseThrow(() -> new IllegalArgumentException("There are no campaigns with id=" + id + "!"));
     }
 
-    public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
+    public List<Campaign> getCampaigns(int count){
+        List<Long> ids = StreamSupport.stream(campaignRepository.findAll().spliterator(), false).map(Campaign::getId).collect(Collectors.toList());
+        Collections.shuffle(ids);
+        return ids.subList(0,count).stream().map(x->campaignRepository.findById(x).get()).collect(Collectors.toList());
+    }
+
+
+    public Iterable<Campaign> getActiveCampaignsByUserId(long id){
+        return campaignRepository.getActiveCampaignsByUserId(id);
+    }
+
+      public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
         Campaign campaign = getCampaignById(campaignID);
         User user = getUserById(userID);
         User parent = getUserById(parentID);
         userCampaignRepository.save(new UserCampaign(campaign, user, parent, 0));
-
+  
         UserCampaign userCampaign;
         long currentUser = parentID;
         for (int i = 0; i < 5; i++) {

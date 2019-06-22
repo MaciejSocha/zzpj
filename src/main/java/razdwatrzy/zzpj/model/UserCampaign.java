@@ -2,10 +2,12 @@ package razdwatrzy.zzpj.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Data
 @Entity
 @Table(name = "user_campaign")
 public class UserCampaign {
