@@ -2,6 +2,7 @@ package razdwatrzy.zzpj.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Builder
 public class User {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
