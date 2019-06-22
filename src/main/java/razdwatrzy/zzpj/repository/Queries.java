@@ -76,7 +76,7 @@ public class Queries {
 
 
     public Iterable<Campaign> getActiveCampaignsByUserId(long id){
-        return campaignRepository.getActiveCampaignsByUserId(id);
+        return campaignRepository.getActiveCampaignsByUserCampaignUserId(id);
     }
 
 }
