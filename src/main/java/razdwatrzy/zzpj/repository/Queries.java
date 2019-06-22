@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Repository;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
+import razdwatrzy.zzpj.model.UserCampaign;
 import razdwatrzy.zzpj.model.UserCredentials;
 
 import java.util.Collections;
@@ -22,9 +23,13 @@ public class Queries {
     final
     UserRepository userRepository;
 
-    public Queries(CampaignRepository campaignRepository, UserRepository userRepository) {
+    final
+    UserCampaignRepository userCampaignRepository;
+
+    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository) {
         this.campaignRepository = campaignRepository;
         this.userRepository = userRepository;
+        this.userCampaignRepository = userCampaignRepository;
     }
 
     public User addUser(String login, String email, String password) {
@@ -51,21 +56,13 @@ public class Queries {
     }
 
     public User getUserById(long id) throws IllegalArgumentException {
-        try {
-            Optional<User> user = userRepository.findById(id);
-            return user.orElse(null); //TODO should throw custom exception
-        } catch (Exception e) {
-            throw new IllegalArgumentException("There are no users with given id!");
-        }
+        Optional<User> user = userRepository.findById(id);
+        return user.orElseThrow(() -> new IllegalArgumentException("There are no users with id=" + id + "!"));
     }
 
     public Campaign getCampaignById(long id) throws IllegalArgumentException {
-        try {
-            Optional<Campaign> campaign = campaignRepository.findById(id);
-            return campaign.orElse(null); //TODO should throw custom exception
-        } catch (Exception e) {
-            throw new IllegalArgumentException("There are no campaigns with given id!");
-        }
+        Optional<Campaign> campaign = campaignRepository.findById(id);
+        return campaign.orElseThrow(() -> new IllegalArgumentException("There are no campaigns with id=" + id + "!"));
     }
 
     public List<Campaign> getCampaigns(int count){
@@ -79,4 +76,21 @@ public class Queries {
         return campaignRepository.getActiveCampaignsByUserCampaignUserId(id);
     }
 
+      public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
+        Campaign campaign = getCampaignById(campaignID);
+        User user = getUserById(userID);
+        User parent = getUserById(parentID);
+        userCampaignRepository.save(new UserCampaign(campaign, user, parent, 0));
+  
+        UserCampaign userCampaign;
+        long currentUser = parentID;
+        for (int i = 0; i < 5; i++) {
+            userCampaign = userCampaignRepository.getUserCampaignByCampaignIdAndUserId(campaignID, currentUser);
+            if(userCampaign != null) {
+                userCampaign.setPoints((int)(userCampaign.getPoints() + 16 * (float)Math.pow(1/2, i)));
+                userCampaignRepository.save(userCampaign);
+                currentUser = userCampaign.getUser().getId();
+            }
+        }
+    }
 }
