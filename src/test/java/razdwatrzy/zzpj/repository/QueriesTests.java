@@ -130,6 +130,7 @@ public class QueriesTests {
     @Test
     public void getActiveCampaignsByUserId(){
         User user = queries.addUser("Yenj", "123@gmail.com","hidden");
+        User parent = queries.addUser("Yenj", "123@gmail.com","hidden");
 
 
         Campaign campaign1 = new Campaign(null,100,1000,false,"Campaign1","abc",
@@ -144,7 +145,7 @@ public class QueriesTests {
                 "abc", "img", "img", new Date());
 
 
-        UserCampaign userCampaign1 = new UserCampaign(campaign1, user, 1L, 1000);
+        UserCampaign userCampaign1 = new UserCampaign(campaign1, user, parent, 1000);
         campaign1.setUserCampaign(userCampaign1);
 
 //
