@@ -27,7 +27,7 @@ public class Queries {
         this.userRepository = userRepository;
     }
 
-    public void addUser(String login, String email, String password) {
+    public User addUser(String login, String email, String password) {
         User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
         UserCredentials credentials = new UserCredentials(user, email, password);
         user.setUserCredentials(credentials);
