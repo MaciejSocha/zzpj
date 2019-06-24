@@ -10,7 +10,6 @@ import java.util.Date;
 public class UserForm {
     private long id;
     private String login;
-    private UserCredentialsForm userCredentialsForm;
     private Date registrationTime;
     private Boolean isActivated;
     private Boolean isBanned;

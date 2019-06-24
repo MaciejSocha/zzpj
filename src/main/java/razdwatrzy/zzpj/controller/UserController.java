@@ -1,6 +1,7 @@
 package razdwatrzy.zzpj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import razdwatrzy.zzpj.controller.DataHolders.SignIn;
 import razdwatrzy.zzpj.controller.DataHolders.SignupData;
@@ -26,12 +27,14 @@ public class UserController {
     }
 
     @PostMapping("signUp")
+    @ResponseStatus(HttpStatus.OK)
     public UserForm addUser(@RequestBody SignupData dataHolder){
         User newUser = DataAccess.addUser(dataHolder.getLogin(),dataHolder.getEmail(),dataHolder.getPassword());
         return userToUserForm.convert(newUser);
     }
 
     @PostMapping("signIn")
+    @ResponseStatus(HttpStatus.OK)
     public UserForm signIn(@RequestBody SignIn dataHolder){
         return userToUserForm.convert(DataAccess.getUser(dataHolder.getEmail(), dataHolder.getPassword()));
     }
