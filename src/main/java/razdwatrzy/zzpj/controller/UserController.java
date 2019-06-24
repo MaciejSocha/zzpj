@@ -39,9 +39,10 @@ public class UserController {
         return userToUserForm.convert(DataAccess.getUser(dataHolder.getEmail(), dataHolder.getPassword()));
     }
 
-    @GetMapping("follow/{user_id}/{campaign_id}")
-    public String getFollowLink(){
-        return null;
+    @RequestMapping(path = "follow/{user_id}/{parent_id}/{campaign_id}")
+    public String getFollowLink(@PathVariable("user_id") Long user_id,@PathVariable("parent_id") Long parent_id,@PathVariable("campaign_id") Long campaign_id){
+        DataAccess.followCampaign(user_id,parent_id,campaign_id);
+        return "ok";
     }
 
     @Autowired

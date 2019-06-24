@@ -10,14 +10,14 @@ import static org.junit.Assert.assertEquals;
 public class CryptoTests {
 
 
-    private ICipher cipher = new Char32ICipher();
+    private ICipher cipher = new Byte48Cipher();
 
     @Test
     public void encodeTest() throws Exception {
-        int x = 10;
+        long x = 10;
         byte[] encode = cipher.encode(x);
         assertEquals(encode.length, 48);
-        int out = cipher.decode(encode);
+        long out = cipher.decode(encode);
         assertEquals(out, x);
 
     }

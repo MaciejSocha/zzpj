@@ -7,21 +7,21 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-public class Char32ICipher implements ICipher {
-    static int cipherLength = 32;
+public class Byte48Cipher implements ICipher {
+    static int cipherLength = 32;   //32+16 bytes after aes
 
     String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?/.,";
     byte[] key = "1234567812345678".getBytes();
 
 
     @Override
-    public byte[] encode(int i) throws Exception {
+    public byte[] encode(long i) throws Exception {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
 
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 
-        String s = Integer.toString(i);
+        String s = Long.toString(i);
 
         Random random = new Random();
         for (int j = s.length(); j < cipherLength; j++) {
@@ -35,7 +35,7 @@ public class Char32ICipher implements ICipher {
     }
 
     @Override
-    public int decode(byte[] s) throws Exception {
+    public long decode(byte[] s) throws Exception {
 
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
 
