@@ -1,10 +1,8 @@
 package razdwatrzy.zzpj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import razdwatrzy.zzpj.controller.DataHolders.SignInEmailData;
+import razdwatrzy.zzpj.controller.DataHolders.SignIn;
 import razdwatrzy.zzpj.controller.DataHolders.SignupData;
 import razdwatrzy.zzpj.converters.UserFormToUser;
 import razdwatrzy.zzpj.converters.UserToUserForm;
@@ -28,14 +26,14 @@ public class UserController {
     }
 
     //TODO co z tym zrobić?
-    @PostMapping("signup")
-    public User addUser(@RequestBody SignupData dataHolder){
+    @PostMapping("signUp")
+    public UserForm addUser(@RequestBody SignupData dataHolder){
         User newUser = DataAccess.addUser(dataHolder.getLogin(),dataHolder.getEmail(),dataHolder.getPassword());
-        return newUser;
+        return userToUserForm.convert(newUser);
     }
 
-    @PostMapping("signInWithEmail")
-    public UserForm signInWithEmail(@RequestBody SignInEmailData dataHolder){
+    @PostMapping("signIn")
+    public UserForm signIn(@RequestBody SignIn dataHolder){
         return userToUserForm.convert(DataAccess.getUser(dataHolder.getEmail(), dataHolder.getPassword()));
     }
 
