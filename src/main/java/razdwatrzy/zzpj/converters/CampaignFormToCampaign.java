@@ -22,6 +22,8 @@ public class CampaignFormToCampaign implements Converter<CampaignForm, Campaign>
         campaign.setBgIMG(campaignForm.getBgIMG());
         campaign.setProfileIMG(campaignForm.getProfileIMG());
         campaign.setEndDate(campaignForm.getEndDate());
+        campaign.setMovieKey(campaignForm.getMovieKey());
+
         return campaign;
     }
 }

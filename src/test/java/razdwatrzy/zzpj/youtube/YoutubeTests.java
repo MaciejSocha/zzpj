@@ -8,7 +8,7 @@ public class YoutubeTests {
     @Test
     public void testApi(){
         YouTubeService service = new YouTubeService();
-        int views = service.getViewsCountForVideo("AIzaSyDRmYcV4AhmuIHPI_c0b3ESokONHj1c4O0");
+        int views = service.getViewsCountForVideo("DQj3cOldMzM");
 //        assertEquals(287028, views);
 
     }
