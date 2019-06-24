@@ -86,7 +86,7 @@ public class Queries {
 
         UserCampaign userCampaign;
         long currentUser = parentID;
-        if (parentID != 0) {
+        if (!parentID.equals(userID)) {
             for (int i = 0; i < 5; i++) {
                 userCampaign = userCampaignRepository.getUserCampaignByCampaignIdAndUserId(campaignID, currentUser);
                 if (userCampaign != null) {
