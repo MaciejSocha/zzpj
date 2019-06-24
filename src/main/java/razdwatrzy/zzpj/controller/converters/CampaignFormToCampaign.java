@@ -8,7 +8,9 @@ public class CampaignFormToCampaign implements Converter<CampaignForm, Campaign>
     @Override
     public Campaign convert(CampaignForm campaignForm) {
         Campaign campaign = new Campaign();
-        campaign.setId(campaignForm.getId());
+        if (campaignForm.getId() != 0) {
+            campaign.setId(campaignForm.getId());
+        }
         campaign.setUserCampaign(new UserCampaignFormToUserCampaign().convert(campaignForm.getUserCampaignForm()));
         campaign.setPoints(campaignForm.getPoints());
         campaign.setPointsToWin(campaignForm.getPointsToWin());

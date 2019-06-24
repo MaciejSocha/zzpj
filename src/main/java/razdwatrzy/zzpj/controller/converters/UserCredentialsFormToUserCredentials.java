@@ -8,7 +8,9 @@ public class UserCredentialsFormToUserCredentials implements Converter<UserCrede
     @Override
     public UserCredentials convert(UserCredentialsForm userCredentialsForm) {
         UserCredentials userCredentials = new UserCredentials();
-        userCredentials.setId(userCredentialsForm.getId());
+        if (userCredentialsForm.getId() != 0) {
+            userCredentials.setId(userCredentialsForm.getId());
+        }
         userCredentials.setUser(new UserFormToUser().convert(userCredentialsForm.getUserForm()));
         userCredentials.setEmail(userCredentialsForm.getEmail());
         userCredentials.setPassword(userCredentialsForm.getPassword());

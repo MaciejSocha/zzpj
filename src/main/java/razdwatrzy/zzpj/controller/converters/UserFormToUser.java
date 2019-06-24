@@ -8,7 +8,9 @@ public class UserFormToUser implements Converter<UserForm, User> {
     @Override
     public User convert(UserForm userForm) {
         User user = new User();
-        user.setId(userForm.getId());
+        if (userForm.getId() != 0) {
+            user.setId(userForm.getId());
+        }
         user.setLogin(userForm.getLogin());
         user.setUserCredentials(new UserCredentialsFormToUserCredentials().convert(userForm.getUserCredentialsForm()));
         user.setRegistrationTime(userForm.getRegistrationTime());

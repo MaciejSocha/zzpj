@@ -8,7 +8,9 @@ public class UserCampaignFormToUserCampaign implements Converter<UserCampaignFor
     @Override
     public UserCampaign convert(UserCampaignForm userCampaignForm) {
         UserCampaign userCampaign = new UserCampaign();
-        userCampaign.setId(userCampaignForm.getId());
+        if (userCampaignForm.getId() != 0) {
+            userCampaign.setId(userCampaignForm.getId());
+        }
         userCampaign.setCampaign(new CampaignFormToCampaign().convert(userCampaignForm.getCampaignForm()));
         userCampaign.setUser(new UserFormToUser().convert(userCampaignForm.getUserForm()));
         userCampaign.setParent(new UserFormToUser().convert(userCampaignForm.getParent()));
