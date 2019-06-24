@@ -20,9 +20,9 @@ import java.util.regex.Pattern;
 public class YouTubeService {
 
 //    AIzaSyDRmYcV4AhmuIHPI_c0b3ESokONHj1c4O0
-    public int getViewsCountForVideo(String key){
+    public int getViewsCountForVideo(String id){
 
-        String sUrl = "https://www.googleapis.com/youtube/v3/videos?id=DQj3cOldMzM&key=" + key + "&part=statistics";
+        String sUrl = "https://www.googleapis.com/youtube/v3/videos?id="+ id + "&key=AIzaSyDRmYcV4AhmuIHPI_c0b3ESokONHj1c4O0&part=statistics";
 
         // Connect to the URL using java's native library
         URL url = null;
@@ -48,7 +48,6 @@ public class YouTubeService {
             e.printStackTrace();
         }
         String json = root.getAsJsonObject().toString(); //May be an array, may be an objec
-
 
         return Integer.parseInt(getJsonAttributeValue(json, "viewCount"));
 
