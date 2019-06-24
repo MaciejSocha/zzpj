@@ -10,14 +10,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
-import razdwatrzy.zzpj.model.UserCampaign;
 
-import javax.sql.DataSource;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,9 +34,9 @@ public class QueriesTests {
 
     @Before
     public void clearDb(){
+        userCampaignRepository.deleteAll();
         userRepository.deleteAll();
         campaignRepository.deleteAll();
-        userCampaignRepository.deleteAll();
     }
 
     @Test
@@ -84,7 +81,6 @@ public class QueriesTests {
                 "abc", "img", "img", new Date());
 
 
-
         queries.addCampaign(campaign1);
         queries.addCampaign(campaign2);
         queries.addCampaign(campaign3);
@@ -106,14 +102,12 @@ public class QueriesTests {
         assertEquals("Yenj", user.getLogin());
     }
 
-
     @Test
     public void getUserById(){
         User user = queries.addUser("Yenj", "123@gmail.com", "hidden");
         User user1 = queries.getUserById(user.getId());
         assertEquals(user.getId(), user1.getId());
         assertEquals(user.getLogin(), user1.getLogin());
-
     }
 
     @Test
@@ -130,7 +124,7 @@ public class QueriesTests {
     @Test
     public void getActiveCampaignsByUserId(){
         User user = queries.addUser("Yenj", "123@gmail.com","hidden");
-        User parent = queries.addUser("Yenj", "123@gmail.com","hidden");
+        User parent = queries.addUser("jney", "321@gmail.com","hidden");
 
 
         Campaign campaign1 = new Campaign(null,100,1000,false,"Campaign1","abc",
@@ -144,28 +138,26 @@ public class QueriesTests {
         Campaign campaign3 = new Campaign(null,100,1000,false,"Campaign3","abc",
                 "abc", "img", "img", new Date());
 
-
-
-
-//
-//        UserCampaign userCampaign2 = new UserCampaign(campaign2, user, 1L, 1000);
-//        campaign2.setUserCampaign(userCampaign2);
-
-        //        UserCampaign userCampaign3 = new UserCampaign(campaign3, user, 1L, 1000);
-//        campaign3.setUserCampaign(userCampaign3);
-
         queries.addCampaign(campaign1);
         queries.addCampaign(campaign2);
         queries.addCampaign(campaign3);
 
+        queries.followCampaign(campaign1.getId(), user.getId(), parent.getId());
 
-        assertEquals(1, userRepository.count());
+        assertEquals(2, userRepository.count());
         assertEquals(3, campaignRepository.count());
         assertEquals(1, userCampaignRepository.count());
-//
-////        Iterable<Campaign> activeCampaignsByUserId = queries.getActiveCampaignsByUserId(user.getId());
-////        assertEquals(2, IterableUtil.sizeOf(activeCampaignsByUserId));
-//
+
+        Iterable<Campaign> activeCampaignsByUserId = queries.getActiveCampaignsByUserId(user.getId());
+        assertEquals(1, IterableUtil.sizeOf(activeCampaignsByUserId));
+    }
+
+    @Test
+    public void getUser() {
+        User user1 = queries.addUser("Yenj", "123@gmail.com","hidden");
+        User user2 = queries.getUser("123@gmail.com","hidden");
+
+        assertEquals(user1.getId(), user2.getId());
     }
 
 }
