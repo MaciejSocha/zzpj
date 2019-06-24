@@ -28,6 +28,13 @@ public class Campaign {
     @Column
     private int points;
 
+
+    @Getter
+    @Setter
+    @NotNull
+    @Column
+    private String movieKey;
+
     @Getter
     @Setter
     @NotNull

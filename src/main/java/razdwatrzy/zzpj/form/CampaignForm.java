@@ -19,6 +19,9 @@ public class CampaignForm {
     private String bgIMG;
     private String profileIMG;
     private Date endDate;
+    private int viewCount;
+    private String movieKey;
+
 
     public CampaignForm() {
     }
