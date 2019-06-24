@@ -152,4 +152,12 @@ public class QueriesTests {
         assertEquals(1, IterableUtil.sizeOf(activeCampaignsByUserId));
     }
 
+    @Test
+    public void getUser() {
+        User user1 = queries.addUser("Yenj", "123@gmail.com","hidden");
+        User user2 = queries.getUser("123@gmail.com","hidden");
+
+        assertEquals(user1.getId(), user2.getId());
+    }
+
 }
