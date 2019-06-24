@@ -88,7 +88,7 @@ public class Campaign {
 
     }
 
-    public Campaign(UserCampaign userCampaign, @NotNull int points, @NotNull int pointsToWin, @NotNull Boolean isFinished, @NotNull @Size(max = 16) String title, @NotNull @Size(max = 32) String shortDescription, @NotNull @Size(max = 128) String description, @NotNull String bgIMG, @NotNull String profileIMG, @NotNull Date endDate) {
+    public Campaign(@NotNull int points, @NotNull int pointsToWin, @NotNull Boolean isFinished, @NotNull @Size(max = 16) String title, @NotNull @Size(max = 32) String shortDescription, @NotNull @Size(max = 128) String description, @NotNull String bgIMG, @NotNull String profileIMG, @NotNull Date endDate, @NotNull String movieKey) {
         this.points = points;
         this.pointsToWin = pointsToWin;
         this.isFinished = isFinished;
@@ -98,5 +98,6 @@ public class Campaign {
         this.bgIMG = bgIMG;
         this.profileIMG = profileIMG;
         this.endDate = endDate;
+        this.movieKey = movieKey;
     }
 }

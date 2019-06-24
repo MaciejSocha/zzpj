@@ -49,8 +49,8 @@ public class QueriesTests {
 
     @Test
     public void addCampaign(){
-        Campaign campaign = new Campaign(null,100,1000,false,"Camp","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign = new Campaign(100,1000,false,"Camp","abc",
+                "abc", "img", "img", new Date(), "key");
 
         long countBeforeQuery = campaignRepository.count();
         campaignRepository.save(campaign);
@@ -61,24 +61,24 @@ public class QueriesTests {
 
     @Test
     public void getCampaigns(){
-        Campaign campaign1 = new Campaign(null,100,1000,false,"Campaign1","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign1 = new Campaign(100,1000,false,"Campaign1","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign2 = new Campaign(null,100,1000,false,"Campaign2","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign2 = new Campaign(100,1000,false,"Campaign2","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign3 = new Campaign(null,100,1000,false,"Campaign3","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign3 = new Campaign(100,1000,false,"Campaign3","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign4 = new Campaign(null,100,1000,false,"Campaign4","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign4 = new Campaign(100,1000,false,"Campaign4","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign5 = new Campaign(null,100,1000,false,"Campaign5","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign5 = new Campaign(100,1000,false,"Campaign5","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
         queries.addCampaign(campaign1);
@@ -112,8 +112,8 @@ public class QueriesTests {
 
     @Test
     public void getCampaignById(){
-        Campaign campaign1 = new Campaign(null,100,1000,false,"Campaign1","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign1 = new Campaign(100,1000,false,"Campaign1","abc",
+                "abc", "img", "img", new Date(), "key");
 
         queries.addCampaign(campaign1);
 
@@ -127,16 +127,16 @@ public class QueriesTests {
         User parent = queries.addUser("jney", "321@gmail.com","hidden");
 
 
-        Campaign campaign1 = new Campaign(null,100,1000,false,"Campaign1","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign1 = new Campaign(100,1000,false,"Campaign1","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign2 = new Campaign(null,100,1000,true,"Campaign2","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign2 = new Campaign(100,1000,true,"Campaign2","abc",
+                "abc", "img", "img", new Date(), "key");
 
 
-        Campaign campaign3 = new Campaign(null,100,1000,false,"Campaign3","abc",
-                "abc", "img", "img", new Date());
+        Campaign campaign3 = new Campaign(100,1000,false,"Campaign3","abc",
+                "abc", "img", "img", new Date(), "key");
 
         queries.addCampaign(campaign1);
         queries.addCampaign(campaign2);
