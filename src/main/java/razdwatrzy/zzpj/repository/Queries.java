@@ -35,7 +35,6 @@ public class Queries {
     public User addUser(String login, String email, String password) {
         User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(new Date()).build();
         UserCredentials credentials = new UserCredentials(user, email, password);
-        user.setUserCredentials(credentials);
 
         //Cascades to credentials
         userRepository.save(user);

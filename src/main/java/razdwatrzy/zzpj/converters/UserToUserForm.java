@@ -12,7 +12,6 @@ public class UserToUserForm implements Converter<User, UserForm> {
         UserForm userForm = new UserForm();
         userForm.setId(user.getId());
         userForm.setLogin(user.getLogin());
-        userForm.setUserCredentialsForm(new UserCredentialsToUserCredentialsForm().convert(user.getUserCredentials()));
         userForm.setRegistrationTime(user.getRegistrationTime());
         userForm.setIsActivated(user.getIsActiveted());
         userForm.setIsBanned(user.getIsBanned());
