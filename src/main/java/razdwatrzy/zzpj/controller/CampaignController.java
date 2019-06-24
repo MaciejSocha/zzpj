@@ -2,6 +2,8 @@ package razdwatrzy.zzpj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import razdwatrzy.zzpj.converters.CampaignFormToCampaign;
+import razdwatrzy.zzpj.form.CampaignForm;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.repository.Queries;
 
@@ -21,9 +23,9 @@ public class CampaignController {
         return campaign;
     }
     @PostMapping("addcampaign")
-    public Campaign addCampaign(@RequestBody Campaign newCampaign){
-        Campaign campaign = new Campaign(
-                newCampaign.getUserCampaign(),
+    public Campaign addCampaign(@RequestBody CampaignForm newCampaign){
+        CampaignForm campaignForm = new CampaignForm(
+                newCampaign.getUserCampaignForm(),
                 newCampaign.getPoints(),
                 newCampaign.getPointsToWin(),
                 newCampaign.getIsFinished(),
@@ -33,6 +35,7 @@ public class CampaignController {
                 newCampaign.getBgIMG(),
                 newCampaign.getProfileIMG(),
                 newCampaign.getEndDate());
+        Campaign campaign = new CampaignFormToCampaign().convert(campaignForm);
         DataAccess.addCampaign(campaign);
         return campaign;
     }

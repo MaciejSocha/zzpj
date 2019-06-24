@@ -1,4 +1,4 @@
-package razdwatrzy.zzpj.controller.converters;
+package razdwatrzy.zzpj.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import razdwatrzy.zzpj.form.UserForm;

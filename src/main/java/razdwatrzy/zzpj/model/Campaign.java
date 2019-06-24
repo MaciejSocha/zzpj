@@ -21,7 +21,7 @@ public class Campaign {
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "campaignForm")
+            mappedBy = "campaign")
     private UserCampaign userCampaign;
 
     @NotNull

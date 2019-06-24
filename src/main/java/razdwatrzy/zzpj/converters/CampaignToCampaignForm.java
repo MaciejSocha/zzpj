@@ -1,4 +1,4 @@
-package razdwatrzy.zzpj.controller.converters;
+package razdwatrzy.zzpj.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import razdwatrzy.zzpj.form.CampaignForm;
@@ -14,6 +14,7 @@ public class CampaignToCampaignForm implements Converter<Campaign, CampaignForm>
         campaignForm.setIsFinished(campaign.getIsFinished());
         campaignForm.setTitle(campaign.getTitle());
         campaignForm.setShortDescription(campaign.getShortDescription());
+        campaignForm.setDescription(campaign.getDescription());
         campaignForm.setBgIMG(campaign.getBgIMG());
         campaignForm.setProfileIMG(campaign.getProfileIMG());
         campaignForm.setEndDate(campaign.getEndDate());
