@@ -9,7 +9,8 @@ public class BonusFormToBonus implements Converter<BonusForm, Bonus> {
     @Override
     public Bonus convert(BonusForm bonusForm) {
         Bonus bonus = new Bonus();
-        bonus.setCampaign(new CampaignFormToCampaign().convert(bonusForm.getCampaign()));
+        bonus.setId(bonusForm.getId());
+        bonus.setCampaign(new CampaignFormToCampaign().convert(bonusForm.getCampaignForm()));
         bonus.setTitle(bonusForm.getTitle());
         bonus.setDescription(bonusForm.getDescription());
         bonus.setPointsToGet(bonusForm.getPointsToGet());

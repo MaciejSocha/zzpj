@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class BonusForm {
     private long id;
-    private CampaignForm campaign;
+    private CampaignForm campaignForm;
     private String title;
     private String description;
     private int pointsToGet;

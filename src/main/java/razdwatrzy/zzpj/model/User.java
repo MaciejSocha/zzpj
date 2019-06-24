@@ -3,19 +3,21 @@ package razdwatrzy.zzpj.model;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @Data
 @Builder
 public class User {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -26,7 +28,7 @@ public class User {
     private String login;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "user")
     private UserCredentials userCredentials;
 
