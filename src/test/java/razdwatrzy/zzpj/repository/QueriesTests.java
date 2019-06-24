@@ -145,8 +145,7 @@ public class QueriesTests {
                 "abc", "img", "img", new Date());
 
 
-        UserCampaign userCampaign1 = new UserCampaign(campaign1, user, parent, 1000);
-        campaign1.setUserCampaign(userCampaign1);
+
 
 //
 //        UserCampaign userCampaign2 = new UserCampaign(campaign2, user, 1L, 1000);

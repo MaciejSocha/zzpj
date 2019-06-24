@@ -1,61 +1,82 @@
 package razdwatrzy.zzpj.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-@Data
+
 @Entity
 @Table(name = "campaigns")
 public class Campaign {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "campaign")
     private UserCampaign userCampaign;
 
+    @Getter
+    @Setter
     @NotNull
     @Column
     private int points;
 
+    @Getter
+    @Setter
     @NotNull
     @Column
     private int pointsToWin;
 
+    @Getter
+    @Setter
     @NotNull
     @Column
     private Boolean isFinished;
 
+    @Getter
+    @Setter
     @NotNull
     @Size(max = 16)
     @Column(unique = true)
     private String title;
 
+    @Getter
+    @Setter
     @NotNull
     @Size(max = 32)
     @Column
     private String shortDescription;
 
+    @Getter
+    @Setter
     @NotNull
     @Size(max = 128)
     @Column
     private String description;
 
     //url
+    @Getter
+    @Setter
     @NotNull
     @Column
     private String bgIMG;
 
     //url
+    @Getter
+    @Setter
     @NotNull
     @Column
     private String profileIMG;
 
+    @Getter
+    @Setter
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column
