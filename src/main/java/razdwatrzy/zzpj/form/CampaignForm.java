@@ -22,17 +22,4 @@ public class CampaignForm {
 
     public CampaignForm() {
     }
-
-    public CampaignForm(UserCampaignForm userCampaignForm, int points, int pointsToWin, Boolean isFinished, String title, String shortDescription, String description, String bgIMG, String profileIMG, Date endDate) {
-        this.userCampaignForm = userCampaignForm;
-        this.points = points;
-        this.pointsToWin = pointsToWin;
-        this.isFinished = isFinished;
-        this.title = title;
-        this.shortDescription = shortDescription;
-        this.description = description;
-        this.bgIMG = bgIMG;
-        this.profileIMG = profileIMG;
-        this.endDate = endDate;
-    }
 }

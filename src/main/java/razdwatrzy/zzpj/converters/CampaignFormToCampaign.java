@@ -1,9 +1,11 @@
 package razdwatrzy.zzpj.converters;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import razdwatrzy.zzpj.form.CampaignForm;
 import razdwatrzy.zzpj.model.Campaign;
 
+@Component
 public class CampaignFormToCampaign implements Converter<CampaignForm, Campaign> {
     @Override
     public Campaign convert(CampaignForm campaignForm) {
@@ -11,7 +13,6 @@ public class CampaignFormToCampaign implements Converter<CampaignForm, Campaign>
         if (campaignForm.getId() != 0) {
             campaign.setId(campaignForm.getId());
         }
-        campaign.setUserCampaign(new UserCampaignFormToUserCampaign().convert(campaignForm.getUserCampaignForm()));
         campaign.setPoints(campaignForm.getPoints());
         campaign.setPointsToWin(campaignForm.getPointsToWin());
         campaign.setIsFinished(campaignForm.getIsFinished());
