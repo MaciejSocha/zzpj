@@ -33,7 +33,7 @@ public class Queries {
     }
 
     public User addUser(String login, String email, String password) {
-        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
+        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(new Date()).build();
         UserCredentials credentials = new UserCredentials(user, email, password);
         user.setUserCredentials(credentials);
 
@@ -76,7 +76,7 @@ public class Queries {
         return campaignRepository.getActiveCampaignsByUserCampaignUserId(id);
     }
 
-      public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
+    public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
         Campaign campaign = getCampaignById(campaignID);
         User user = getUserById(userID);
         User parent = getUserById(parentID);

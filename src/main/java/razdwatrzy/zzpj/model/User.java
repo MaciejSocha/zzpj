@@ -52,7 +52,7 @@ public class User {
 
     }
 
-    public User(@NotNull @Size(max = 256) String login, UserCredentials userCredentials, @NotNull Date registrationTime, @NotNull Boolean isActiveted, @NotNull Boolean isBanned, @NotNull Date lastLogin) {
+    public User(@NotNull @Size(max = 32) String login, UserCredentials userCredentials, @NotNull Date registrationTime, @NotNull Boolean isActiveted, @NotNull Boolean isBanned, @NotNull Date lastLogin) {
         this.login = login;
         this.userCredentials = userCredentials;
         this.registrationTime = registrationTime;
