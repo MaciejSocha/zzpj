@@ -1,9 +1,11 @@
 package razdwatrzy.zzpj.converters;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import razdwatrzy.zzpj.form.UserForm;
 import razdwatrzy.zzpj.model.User;
 
+@Component
 public class UserFormToUser implements Converter<UserForm, User> {
     @Override
     public User convert(UserForm userForm) {
