@@ -45,7 +45,7 @@ public class Queries {
         if(userCredentials == null) {
             throw new ForbiddenException("Wrong credentials!");
         }
-        return userRepository.getOne(userCredentials.getId());
+        return userCredentials.getUser();
     }
 
     public Campaign addCampaign(Campaign campaign){
