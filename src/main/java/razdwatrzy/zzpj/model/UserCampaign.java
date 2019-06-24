@@ -2,28 +2,33 @@ package razdwatrzy.zzpj.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
 @Entity
 @Table(name = "user_campaign")
 public class UserCampaign {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Getter
+    @Setter
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaign;
 
     @Getter
+    @Setter
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Getter
+    @Setter
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "parent_id", nullable = false)
     private User parent;

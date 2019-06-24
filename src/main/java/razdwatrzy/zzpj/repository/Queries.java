@@ -2,6 +2,7 @@ package razdwatrzy.zzpj.repository;
 
 import lombok.Data;
 import org.springframework.stereotype.Repository;
+import razdwatrzy.zzpj.exceptions.ForbiddenException;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
 import razdwatrzy.zzpj.model.UserCampaign;
@@ -17,29 +18,34 @@ import java.util.Optional;
 @Repository
 @Data
 public class Queries {
-    final
-    CampaignRepository campaignRepository;
+    final CampaignRepository campaignRepository;
+    final UserRepository userRepository;
+    final UserCampaignRepository userCampaignRepository;
+    final UserCredentialsRepository userCredentialsRepository;
 
-    final
-    UserRepository userRepository;
-
-    final
-    UserCampaignRepository userCampaignRepository;
-
-    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository) {
+    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository, UserCredentialsRepository userCredentialsRepository) {
         this.campaignRepository = campaignRepository;
         this.userRepository = userRepository;
         this.userCampaignRepository = userCampaignRepository;
+        this.userCredentialsRepository = userCredentialsRepository;
     }
 
     public User addUser(String login, String email, String password) {
-        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(null).build();
+        User user = User.builder().isBanned(false).login(login).isActiveted(true).registrationTime(new Date()).lastLogin(new Date()).build();
         UserCredentials credentials = new UserCredentials(user, email, password);
-        user.setUserCredentials(credentials);
 
         //Cascades to credentials
         userRepository.save(user);
+        userCredentialsRepository.save(credentials);
         return user;
+    }
+
+    public User getUser(String email, String password) {
+        UserCredentials userCredentials = userCredentialsRepository.getUserCredentialsByEmailAndPassword(email, password);
+        if(userCredentials == null) {
+            throw new ForbiddenException("Wrong credentials!");
+        }
+        return userCredentials.getUser();
     }
 
     public Campaign addCampaign(Campaign campaign){
@@ -76,7 +82,7 @@ public class Queries {
         return campaignRepository.getActiveCampaignsByUserCampaignUserId(id);
     }
 
-      public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
+    public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
         Campaign campaign = getCampaignById(campaignID);
         User user = getUserById(userID);
         User parent = getUserById(parentID);

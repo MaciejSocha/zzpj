@@ -1,29 +1,39 @@
 package razdwatrzy.zzpj.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-@Data
 @Entity
 @Table(name = "user_credentials")
 public class UserCredentials {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Getter
+    @Setter
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Getter
+    @Setter
     @NotNull
     @Email
     @Column(unique = true)
     private String email;
 
+    @Getter
+    @Setter
     @NotNull
     @Column
     private String password;
