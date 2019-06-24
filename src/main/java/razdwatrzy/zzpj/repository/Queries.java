@@ -36,6 +36,7 @@ public class Queries {
 
         //Cascades to credentials
         userRepository.save(user);
+        userCredentialsRepository.save(credentials);
         return user;
     }
 

@@ -25,7 +25,6 @@ public class UserController {
         return userToUserForm.convert(DataAccess.getUserById(user_id));
     }
 
-    //TODO co z tym zrobić?
     @PostMapping("signUp")
     public UserForm addUser(@RequestBody SignupData dataHolder){
         User newUser = DataAccess.addUser(dataHolder.getLogin(),dataHolder.getEmail(),dataHolder.getPassword());
