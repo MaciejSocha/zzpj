@@ -42,13 +42,13 @@ public class Queries {
 
     public User getUser(String email, String password) {
         UserCredentials userCredentials = userCredentialsRepository.getUserCredentialsByEmailAndPassword(email, password);
-        if(userCredentials == null) {
+        if (userCredentials == null) {
             throw new ForbiddenException("Wrong credentials!");
         }
         return userCredentials.getUser();
     }
 
-    public Campaign addCampaign(Campaign campaign){
+    public Campaign addCampaign(Campaign campaign) {
         campaignRepository.save(campaign);
         return campaign;
     }
@@ -71,32 +71,33 @@ public class Queries {
         return campaign.orElseThrow(() -> new IllegalArgumentException("There are no campaigns with id=" + id + "!"));
     }
 
-    public List<Campaign> getCampaigns(int count){
+    public List<Campaign> getCampaigns(int count) {
         List<Long> ids = StreamSupport.stream(campaignRepository.findAll().spliterator(), false).map(Campaign::getId).collect(Collectors.toList());
         Collections.shuffle(ids);
-        return ids.subList(0,count).stream().map(x->campaignRepository.findById(x).get()).collect(Collectors.toList());
+        return ids.subList(0, count).stream().map(x -> campaignRepository.findById(x).get()).collect(Collectors.toList());
     }
 
-
-    public Iterable<Campaign> getActiveCampaignsByUserId(long id){
-        return campaignRepository.getActiveCampaignsByUserCampaignUserId(id);
-    }
 
     public void followCampaign(Long campaignID, Long userID, Long parentID) throws IllegalArgumentException {
         Campaign campaign = getCampaignById(campaignID);
         User user = getUserById(userID);
         User parent = getUserById(parentID);
         userCampaignRepository.save(new UserCampaign(campaign, user, parent, 0));
-  
+
         UserCampaign userCampaign;
         long currentUser = parentID;
-        for (int i = 0; i < 5; i++) {
-            userCampaign = userCampaignRepository.getUserCampaignByCampaignIdAndUserId(campaignID, currentUser);
-            if(userCampaign != null) {
-                userCampaign.setPoints((int)(userCampaign.getPoints() + 16 * (float)Math.pow(1/2, i)));
-                userCampaignRepository.save(userCampaign);
-                currentUser = userCampaign.getUser().getId();
+        if (parentID != 0) {
+            for (int i = 0; i < 5; i++) {
+                userCampaign = userCampaignRepository.getUserCampaignByCampaignIdAndUserId(campaignID, currentUser);
+                if (userCampaign != null) {
+                    campaign.setPoints((int) (campaign.getPoints() + 16 * (float) Math.pow(1 / 2, i)));
+                    campaignRepository.save(campaign);
+                    userCampaign.setPoints((int) (userCampaign.getPoints() + 16 * (float) Math.pow(1 / 2, i)));
+                    userCampaignRepository.save(userCampaign);
+                    currentUser = userCampaign.getUser().getId();
+                }
             }
         }
     }
 }
+

@@ -22,26 +22,26 @@ public class UserController {
     //TODO Add sign in and sign up
 
     @GetMapping("user/{user_id}")
-    public UserForm getUser(@PathVariable Long user_id){
+    public UserForm getUser(@PathVariable Long user_id) {
         return userToUserForm.convert(DataAccess.getUserById(user_id));
     }
 
     @PostMapping("signUp")
     @ResponseStatus(HttpStatus.OK)
-    public UserForm addUser(@RequestBody SignupData dataHolder){
-        User newUser = DataAccess.addUser(dataHolder.getLogin(),dataHolder.getEmail(),dataHolder.getPassword());
+    public UserForm addUser(@RequestBody SignupData dataHolder) {
+        User newUser = DataAccess.addUser(dataHolder.getLogin(), dataHolder.getEmail(), dataHolder.getPassword());
         return userToUserForm.convert(newUser);
     }
 
     @PostMapping("signIn")
     @ResponseStatus(HttpStatus.OK)
-    public UserForm signIn(@RequestBody SignIn dataHolder){
+    public UserForm signIn(@RequestBody SignIn dataHolder) {
         return userToUserForm.convert(DataAccess.getUser(dataHolder.getEmail(), dataHolder.getPassword()));
     }
 
     @RequestMapping(path = "follow/{user_id}/{parent_id}/{campaign_id}")
-    public String getFollowLink(@PathVariable("user_id") Long user_id,@PathVariable("parent_id") Long parent_id,@PathVariable("campaign_id") Long campaign_id){
-        DataAccess.followCampaign(user_id,parent_id,campaign_id);
+    public String getFollowLink(@PathVariable("user_id") Long user_id, @PathVariable("parent_id") Long parent_id, @PathVariable("campaign_id") Long campaign_id) {
+        DataAccess.followCampaign(campaign_id, user_id, parent_id);
         return "ok";
     }
 

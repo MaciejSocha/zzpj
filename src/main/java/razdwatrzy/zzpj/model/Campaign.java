@@ -17,11 +17,6 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "campaign")
-    private UserCampaign userCampaign;
-
     @Getter
     @Setter
     @NotNull
@@ -87,7 +82,6 @@ public class Campaign {
     }
 
     public Campaign(UserCampaign userCampaign, @NotNull int points, @NotNull int pointsToWin, @NotNull Boolean isFinished, @NotNull @Size(max = 16) String title, @NotNull @Size(max = 32) String shortDescription, @NotNull @Size(max = 128) String description, @NotNull String bgIMG, @NotNull String profileIMG, @NotNull Date endDate) {
-        this.userCampaign = userCampaign;
         this.points = points;
         this.pointsToWin = pointsToWin;
         this.isFinished = isFinished;

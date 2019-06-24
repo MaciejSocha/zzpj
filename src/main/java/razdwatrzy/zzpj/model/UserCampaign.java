@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user_campaign")
+@Table(name = "user_campaigns")
 public class UserCampaign {
     @Getter
     @Setter
@@ -17,19 +17,19 @@ public class UserCampaign {
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaign;
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "parent_id", nullable = false)
     private User parent;
 
