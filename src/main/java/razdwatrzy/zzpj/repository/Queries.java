@@ -26,10 +26,14 @@ public class Queries {
     final
     UserCampaignRepository userCampaignRepository;
 
-    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository) {
+    final
+    UserCredentialsRepository userCredentialsRepository;
+
+    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository, UserCredentialsRepository userCredentialsRepository) {
         this.campaignRepository = campaignRepository;
         this.userRepository = userRepository;
         this.userCampaignRepository = userCampaignRepository;
+        this.userCredentialsRepository = userCredentialsRepository;
     }
 
     public User addUser(String login, String email, String password) {
@@ -38,6 +42,7 @@ public class Queries {
 
         //Cascades to credentials
         userRepository.save(user);
+        userCredentialsRepository.save(credentials);
         return user;
     }
 
