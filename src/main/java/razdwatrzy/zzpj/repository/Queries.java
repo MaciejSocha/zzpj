@@ -2,6 +2,7 @@ package razdwatrzy.zzpj.repository;
 
 import lombok.Data;
 import org.springframework.stereotype.Repository;
+import razdwatrzy.zzpj.exceptions.ForbiddenException;
 import razdwatrzy.zzpj.model.Campaign;
 import razdwatrzy.zzpj.model.User;
 import razdwatrzy.zzpj.model.UserCampaign;
@@ -17,19 +18,16 @@ import java.util.Optional;
 @Repository
 @Data
 public class Queries {
-    final
-    CampaignRepository campaignRepository;
+    final CampaignRepository campaignRepository;
+    final UserRepository userRepository;
+    final UserCampaignRepository userCampaignRepository;
+    final UserCredentialsRepository userCredentialsRepository;
 
-    final
-    UserRepository userRepository;
-
-    final
-    UserCampaignRepository userCampaignRepository;
-
-    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository) {
+    public Queries(CampaignRepository campaignRepository, UserRepository userRepository, UserCampaignRepository userCampaignRepository, UserCredentialsRepository userCredentialsRepository) {
         this.campaignRepository = campaignRepository;
         this.userRepository = userRepository;
         this.userCampaignRepository = userCampaignRepository;
+        this.userCredentialsRepository = userCredentialsRepository;
     }
 
     public User addUser(String login, String email, String password) {
@@ -39,6 +37,14 @@ public class Queries {
         //Cascades to credentials
         userRepository.save(user);
         return user;
+    }
+
+    public User getUser(String email, String password) {
+        UserCredentials userCredentials = userCredentialsRepository.getUserCredentialsByEmailAndPassword(email, password);
+        if(userCredentials == null) {
+            throw new ForbiddenException("Wrong credentials!");
+        }
+        return userRepository.getOne(userCredentials.getId());
     }
 
     public Campaign addCampaign(Campaign campaign){
